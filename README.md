@@ -57,9 +57,9 @@ Nice! This tells us that we already cover 87.5% of our lines of code. Not too ba
 The resulting test.cpp.gcov file gives a more detailed breakdown which lines have been executed how many times:
 
 ```
-        -:    0:Source:test.cpp
-        -:    0:Graph:test.gcno
-        -:    0:Data:test.gcda
+        -:    0:Source:main.cpp
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
         -:    0:Runs:1
         -:    0:Programs:1
         -:    1:#include <cassert>
@@ -88,10 +88,10 @@ int main() {
 This bumps up our line coverage to 100%:
 
 ```bash
-$ gcov test.cpp
-File 'test.cpp'
+$ gcov nain.cpp
+File 'main.cpp'
 Lines executed:100.00% of 9
-Creating 'test.cpp.gcov'
+Creating 'main.cpp.gcov'
 ```
 
 Next, let’s have a look how to visualize this information in a more accessible manner.
@@ -148,7 +148,7 @@ if(ENABLE_COVERAGE)
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
 
-add_executable(test test.cpp)
+add_executable(test main.cpp)
 ```
 
 Create build folder and navigate to this folder:
