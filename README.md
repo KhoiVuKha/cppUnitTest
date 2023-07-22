@@ -7,6 +7,8 @@ I’ll proceed in three steps:
 2. CMake integration
 3. Continuous integration
 
+[![Coverage Status](https://coveralls.io/repos/github/KhoiVuKha/cppUnitTest/badge.svg?branch=main)](https://coveralls.io/github/KhoiVuKha/cppUnitTest?branch=main)
+
 # 1. Command line usage
 
 For command line usage, I’ll use the Gcov code coverage analysis tool. Both GCC and Clang can generate profiling information that can be processed by Gcov.
