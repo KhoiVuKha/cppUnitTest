@@ -40,7 +40,7 @@ Note that disabling optimizations is required to get reliable coverage results, 
 
 ```bash
 $ ls main.*
-test.cpp        test.gcda       test.gcno
+main.cpp        main.gcda       main.gcno
 ```
 
 The .gcda and .gcno files contain the coverage data. Now run gcov to process the results:
@@ -49,12 +49,12 @@ The .gcda and .gcno files contain the coverage data. Now run gcov to process the
 $ gcov main.cpp
 File 'main.cpp'
 Lines executed:87.50% of 8
-Creating 'test.cpp.gcov'
+Creating 'main.cpp.gcov'
 ```
 
 Nice! This tells us that we already cover 87.5% of our lines of code. Not too bad, but there’s room for improvement.
 
-The resulting test.cpp.gcov file gives a more detailed breakdown which lines have been executed how many times:
+The resulting main.cpp.gcov file gives a more detailed breakdown which lines have been executed how many times:
 
 ```
         -:    0:Source:main.cpp
