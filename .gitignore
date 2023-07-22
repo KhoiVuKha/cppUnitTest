@@ -37,3 +37,4 @@ build/*
 *.gcno
 *.info
 coverage/*
+*.cpp.gcov

@@ -114,14 +114,13 @@ genhtml --demangle-cpp -o coverage coverage.info
 
 Open the resulting coverage/index.html file in a browser of your choice and you’ll see an overview like this:
 
-![Alt text](image.png)
+![Alt text](img.png)
 
 This allows you to locally browse through your code base and check which parts are covered (light blue) and which not (orange).
 
-![Alt text](image-1.png)
+![Alt text](img-1.png)
 
 Note that I’m showing the version for the lower coverage rate here.
-
 
 # 2. CMake Integration
 
