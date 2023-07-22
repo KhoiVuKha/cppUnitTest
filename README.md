@@ -13,7 +13,7 @@ For command line usage, I’ll use the Gcov code coverage analysis tool. Both GC
 
 Let’s start with this simple example of C++ code:
 
-```
+```cpp
 #include <cassert>
 
 int max(int a, int b) {
@@ -30,20 +30,20 @@ int main() {
 
 Compile this with the -coverage flag to tell the compiler to instrument the code:
 
-```
+```bash
 clang++ -O0 -coverage test.cpp && ./a.out
 ```
 
 Note that disabling optimizations is required to get reliable coverage results, hence the -O0 flag. After running the test program, you’ll see two additional files being generated:
 
-```
+```bash
 $ ls test.*
 test.cpp        test.gcda       test.gcno
 ```
 
 The .gcda and .gcno files contain the coverage data. Now run gcov to process the results:
 
-```
+```bash
 $ gcov test.cpp
 File 'test.cpp'
 Lines executed:87.50% of 8
@@ -76,7 +76,7 @@ The resulting test.cpp.gcov file gives a more detailed breakdown which lines hav
 
 Not surprisingly, our little test here does not trigger all branches of the max() function. Let’s fix that by adding another assertion:
 
-```
+```cpp
 int main() {
     assert(max(1, 0) == 1);
     assert(max(0, 1) == 1);
@@ -85,7 +85,7 @@ int main() {
 
 This bumps up our line coverage to 100%:
 
-```
+```bash
 $ gcov test.cpp
 File 'test.cpp'
 Lines executed:100.00% of 9
@@ -100,13 +100,13 @@ Checking code coverage for a simple example like above is easy. However, for a l
 
 This is where lcov comes in: it is a graphical fronted to your coverage data. In particular, you can use it to generate HTML reports. This is done in two steps. First, run lcov in the directory with the coverage information:
 
-```
+```bash
 lcov --directory . --capture --output-file coverage.info
 ```
 
 Then generate the HTML files:
 
-```
+```bash
 genhtml --demangle-cpp -o coverage coverage.info
 ```
 
@@ -121,7 +121,7 @@ Note that I’m showing the version for the lower coverage rate here.
 
 For convenience, you can integrate the report generation directly into your build system. Here’s a basic CMakeLists.txt file that adds a custom coverage target to run lcov and genhtml:
 
-```
+```bash
 cmake_minimum_required(VERSION 3.6)
 project(coverage-example)
 
@@ -147,19 +147,19 @@ add_executable(test test.cpp)
 
 Create build folder and navigate to this folder:
 
-```
+```bash
 mkdir build && cd build
 ```
 
 Configure and build the project with the ENABLE_COVERAGE option:
 
-```
+```bash
 cmake -DENABLE_COVERAGE=true .. && make
 ```
 
 Now you can run the executable and generate the HTML report:
 
-```
+```bash
 ./test && make coverage
 ```
 
@@ -171,9 +171,9 @@ In this example, I’m using GitHub Actions for integration builds and the Cover
 
 Here is an example for a GitHub workflow that builds and runs the example project from above and uploads the coverage results to Coveralls:
 
-Notes: You need to setup Coveralls accounts (or just log in with github account) and provide access to the testing repository.
+Notes: You need to setup Coveralls accounts (or just log in with github account) and provide access to the testing repository. See Coveralls [Getting started](https://docs.coveralls.io/)
 
-```
+```bash
 name: coverage
 on: push
 env:
