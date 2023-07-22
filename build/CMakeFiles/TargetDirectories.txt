@@ -1,4 +1,0 @@
-/Users/khoivu/workspace/cpp/cppUnitTest/build/CMakeFiles/coverage.dir
-/Users/khoivu/workspace/cpp/cppUnitTest/build/CMakeFiles/test.dir
-/Users/khoivu/workspace/cpp/cppUnitTest/build/CMakeFiles/edit_cache.dir
-/Users/khoivu/workspace/cpp/cppUnitTest/build/CMakeFiles/rebuild_cache.dir

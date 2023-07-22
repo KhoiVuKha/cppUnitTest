@@ -33,21 +33,21 @@ int main() {
 Compile this with the -coverage flag to tell the compiler to instrument the code:
 
 ```bash
-clang++ -O0 -coverage test.cpp && ./a.out
+g++ -O0 -coverage main.cpp && ./a.out
 ```
 
 Note that disabling optimizations is required to get reliable coverage results, hence the -O0 flag. After running the test program, you’ll see two additional files being generated:
 
 ```bash
-$ ls test.*
+$ ls main.*
 test.cpp        test.gcda       test.gcno
 ```
 
 The .gcda and .gcno files contain the coverage data. Now run gcov to process the results:
 
 ```bash
-$ gcov test.cpp
-File 'test.cpp'
+$ gcov main.cpp
+File 'main.cpp'
 Lines executed:87.50% of 8
 Creating 'test.cpp.gcov'
 ```
@@ -114,7 +114,11 @@ genhtml --demangle-cpp -o coverage coverage.info
 
 Open the resulting coverage/index.html file in a browser of your choice and you’ll see an overview like this:
 
+![Alt text](image.png)
+
 This allows you to locally browse through your code base and check which parts are covered (light blue) and which not (orange).
+
+![Alt text](image-1.png)
 
 Note that I’m showing the version for the lower coverage rate here.
 
