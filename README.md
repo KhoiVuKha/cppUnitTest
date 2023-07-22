@@ -1,4 +1,5 @@
-**Getting Started**
+Code Coverage Testing for C++
+-----
 
 I’ll proceed in three steps:
 
@@ -6,11 +7,11 @@ I’ll proceed in three steps:
 2. CMake integration
 3. Continuous integration
 
-**1. Command line usage**
+# 1. Command line usage
 
 For command line usage, I’ll use the Gcov code coverage analysis tool. Both GCC and Clang can generate profiling information that can be processed by Gcov.
 
-Let’s start with this simple example C++ code:
+Let’s start with this simple example of C++ code:
 
 ```
 #include <cassert>
@@ -116,7 +117,7 @@ This allows you to locally browse through your code base and check which parts a
 Note that I’m showing the version for the lower coverage rate here.
 
 
-**2. CMake Integration**
+# 2. CMake Integration
 
 For convenience, you can integrate the report generation directly into your build system. Here’s a basic CMakeLists.txt file that adds a custom coverage target to run lcov and genhtml:
 
@@ -162,13 +163,15 @@ Now you can run the executable and generate the HTML report:
 ./test && make coverage
 ```
 
-**3. Continuous Integration**
+# 3. Continuous Integration
 
 You can take coverage testing one step further and directly integrate it into your continuous integration (CI) pipeline. This is useful for checking how the coverage rate evolves and to make sure it does not decrease as you integrate new features into your project.
 
 In this example, I’m using GitHub Actions for integration builds and the Coveralls web service to visualize results.
 
 Here is an example for a GitHub workflow that builds and runs the example project from above and uploads the coverage results to Coveralls:
+
+Notes: You need to setup Coveralls accounts (or just log in with github account) and provide access to the testing repository.
 
 ```
 name: coverage
