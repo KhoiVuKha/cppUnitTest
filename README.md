@@ -218,6 +218,7 @@ jobs:
 
 If you are curious what the result looks like for a real-world project, check out the Coveralls page for our mesh processing library.
 
+
 **Bottom Line**
 
 Code coverage testing is a tremendously useful tool that I regularly use during development. When writing new code, it gives me confidence that my tests are doing what I think they do. However, I find it particularly useful when bringing legacy code under test. The coverage information guides me which tests to write until I reach sufficient coverage for that code.
