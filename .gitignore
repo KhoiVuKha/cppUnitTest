@@ -40,3 +40,5 @@ coverage/*
 *.cpp.gcov
 CMakeFiles
 CMakeCache.txt
+.output
+*.log

@@ -5,7 +5,8 @@ I’ll proceed in three steps:
 
 1. Command line usage
 2. CMake integration
-3. Continuous integration
+3. Makefile integration
+4. Continuous integration
 
 [![Coverage Status](https://coveralls.io/repos/github/KhoiVuKha/cppUnitTest/badge.svg?branch=main)](https://coveralls.io/github/KhoiVuKha/cppUnitTest?branch=main)
 
@@ -33,7 +34,7 @@ int main() {
 Compile this with the -coverage flag to tell the compiler to instrument the code:
 
 ```bash
-g++ -O0 -coverage main.cpp && ./a.out
+g++ -O0 -coverage -o main.o main.cpp && ./a.out
 ```
 
 Note that disabling optimizations is required to get reliable coverage results, hence the -O0 flag. After running the test program, you’ll see two additional files being generated:
@@ -183,7 +184,79 @@ Now you can run the executable and generate the HTML report:
 ./test && make coverage
 ```
 
-# 3. Continuous Integration
+# 3. Makefile integration
+
+Makefile
+
+```sh
+# Compiler
+CXX = g++
+CXXFLAGS = -Wall -Wextra -g --coverage -O0
+
+# Directories
+BUILD_DIR = .output
+COV_DIR = $(BUILD_DIR)/coverage_report
+LCOV_INFO = $(BUILD_DIR)/coverage.info
+
+# Files
+SRC = main.cpp
+OBJ = $(SRC:%.cpp=$(BUILD_DIR)/%.o)
+EXE = $(BUILD_DIR)/main
+
+# Default rule: build, run, and show coverage
+all: $(EXE) run coverage display
+
+# Ensure output directory exists
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+# Compile source files
+$(BUILD_DIR)/%.o: %.cpp | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Link executable
+$(EXE): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^ --coverage
+
+# Run the program
+run:
+	$(EXE)
+
+# Generate coverage report
+coverage:
+	lcov --capture --directory $(BUILD_DIR) --output-file $(LCOV_INFO)
+	genhtml $(LCOV_INFO) --output-directory $(COV_DIR)
+
+# Display coverage result in terminal
+display:
+	lcov --list $(LCOV_INFO)
+
+# Clean build files
+clean:
+	rm -rf $(BUILD_DIR)
+```
+
+## How to Use It
+## 1. Compile the program & Run tests and generate coverage report
+
+```sh
+make
+```
+
+## 2. Open the HTML report
+
+```sh
+open coverage_report/index.html  # On macOS
+xdg-open coverage_report/index.html  # On Linux
+```
+
+## 4. Clean up build files
+
+```sh
+make clean
+```
+
+# 4. Continuous Integration
 
 You can take coverage testing one step further and directly integrate it into your continuous integration (CI) pipeline. This is useful for checking how the coverage rate evolves and to make sure it does not decrease as you integrate new features into your project.
 
