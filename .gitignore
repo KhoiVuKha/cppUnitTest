@@ -38,3 +38,5 @@ build/*
 *.info
 coverage/*
 *.cpp.gcov
+CMakeFiles
+CMakeCache.txt

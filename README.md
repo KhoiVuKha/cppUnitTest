@@ -43,6 +43,21 @@ $ ls main.*
 main.cpp        main.gcda       main.gcno
 ```
 
+On macOS, the default `g++` is often a symlink to `clang++`, which behaves differently from GNU `g++` when it comes to coverage tools like `gcov`. Clang uses its own coverage tools (`llvm-cov`) instead of `gcov`.
+On macOS you would get:
+
+```bash
+$ ls *main*
+a-main.gcda     a-main.gcno     main.cpp
+```
+
+So to run the command `gcov main.cpp` below, you will need to change name of .gcno and .gcda file:
+
+ ```bash
+$ mv a-main.gcda main.gcda
+$ mv a-main.gcno main.gcno
+```
+
 The .gcda and .gcno files contain the coverage data. Now run gcov to process the results:
 
 ```bash
@@ -88,7 +103,7 @@ int main() {
 This bumps up our line coverage to 100%:
 
 ```bash
-$ gcov nain.cpp
+$ gcov main.cpp
 File 'main.cpp'
 Lines executed:100.00% of 9
 Creating 'main.cpp.gcov'
@@ -114,11 +129,11 @@ genhtml --demangle-cpp -o coverage coverage.info
 
 Open the resulting coverage/index.html file in a browser of your choice and you’ll see an overview like this:
 
-![Alt text](img.png)
+![Alt text](resources/img.png)
 
 This allows you to locally browse through your code base and check which parts are covered (light blue) and which not (orange).
 
-![Alt text](img-1.png)
+![Alt text](resources/img-1.png)
 
 Note that I’m showing the version for the lower coverage rate here.
 
